@@ -1,7 +1,6 @@
 from database import Base
 from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
-from .board_layer import board_layer
+from sqlalchemy.orm import relationship, backref
 
 
 class Board(Base):
@@ -14,5 +13,5 @@ class Board(Base):
     team_id = Column(Integer, ForeignKey('team.team_id', ondelete="CASCADE"))
     user_id = Column(Integer, ForeignKey('user.user_id', ondelete="SET NULL"))
 
-    parent = relationship("Board", secondary=board_layer, back_populates='child_list', uselist=False)
-    child_list = relationship("Board", secondary=board_layer, back_populates='parent')
+    parent_id = Column(Integer, ForeignKey('board.board_id'))
+    child_list = relationship('Board', remote_side="board.c.board_id", backref="parent")
