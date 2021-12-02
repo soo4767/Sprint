@@ -11,6 +11,6 @@ class Team(Base):
     team_id = Column(Integer, primary_key=True)
     team_name = Column(String)
 
-    board_list = relationship("Board", back_populates='team')
+    board_list = relationship("Board")
     user_list = relationship("User", secondary=user_team_relation, back_populates='team_list')
-    category_list = relationship('Category', secondary=team_category_relation)
+    category_list = relationship('Category', secondary=team_category_relation, back_populates='team_list')

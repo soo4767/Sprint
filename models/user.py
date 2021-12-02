@@ -11,6 +11,6 @@ class User(Base):
     user_name = Column(String)
     password = Column(String)
 
-    comment_list = relationship("Comment", back_populates='user')
+    comment_list = relationship("Comment")
     team_list = relationship("Team", secondary=user_team_relation, back_populates='user_list')
-    board_list = relationship("Board", back_populates='user')
+    board_list = relationship("Board")
